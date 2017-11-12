@@ -1,11 +1,10 @@
-package com.kllawesome.app
+package com.kllawesome.api
 
-import com.kllawesome.app.util.coroutineHandler
+import com.kllawesome.api.util.coroutineHandler
 import io.vertx.core.http.HttpServer
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.RoutingContext
 import io.vertx.ext.web.handler.BodyHandler
-import io.vertx.ext.web.handler.StaticHandler
 import io.vertx.kotlin.coroutines.CoroutineVerticle
 import io.vertx.kotlin.coroutines.awaitResult
 

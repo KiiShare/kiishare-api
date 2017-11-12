@@ -1,4 +1,4 @@
-package com.kllawesome.app
+package com.kllawesome.api
 
 import io.vertx.core.Vertx
 

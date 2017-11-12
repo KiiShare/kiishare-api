@@ -1,4 +1,4 @@
-package com.kllawesome.app.util
+package com.kllawesome.api.util
 
 import io.vertx.ext.web.Route
 import io.vertx.ext.web.RoutingContext
