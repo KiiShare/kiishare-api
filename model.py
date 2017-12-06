@@ -10,6 +10,16 @@ class BaseModel(pw.Model):
         database = database
 
 
+class Keyboard(BaseModel):
+    name = pw.CharField()
+    slug = pw.CharField()
+
+
+class Category(BaseModel):
+    name = pw.CharField()
+    slug = pw.CharField()
+
+
 class Config(BaseModel):
     name = pw.CharField()
     description = pw.TextField()
@@ -17,7 +27,7 @@ class Config(BaseModel):
     # TODO: figure out how to implement categories and keyboards
     # (initial feeling: many to many?)
     # categories = SomeField()
-    # keyboards = SomeField()
+    keyboard = pw.ForeignKeyField(Keyboard, related_name='configs')
     author = pw.CharField()
 
     downloads = pw.IntegerField()
@@ -38,6 +48,17 @@ class Config(BaseModel):
         }
 
 
-def create_tables():
+def setup_db():
     database.connect()
-    database.create_tables([Config])
+    database.create_tables([Config, Keyboard, Category])
+
+    keyboards = [{'name': 'K-Type', 'slug': 'ktype'},
+                 {'name': 'White Fox', 'slug': 'whitefox'},
+                 {'name': 'Ergodox Infinity', 'slug': 'ergodox_infinity'}]
+
+    categories = [{'name': 'Layouts', 'slug': 'layouts'},
+                  {'name': 'Animations', 'slug': 'animations'}]
+
+    with database.atomic():
+        Keyboard.insert_many(keyboards).execute()
+        Category.insert_many(categories).execute()
