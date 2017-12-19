@@ -23,15 +23,16 @@ class Category(BaseModel):
 class Config(BaseModel):
     name = pw.CharField()
     description = pw.TextField()
-    url = pw.CharField()
-    # TODO: figure out how to implement categories and keyboards
-    # (initial feeling: many to many?)
-    # categories = SomeField()
-    keyboard = pw.ForeignKeyField(Keyboard, related_name='configs')
+    githubUrl = pw.CharField()
     author = pw.CharField()
 
     downloads = pw.IntegerField()
     likes = pw.IntegerField()
+
+    # TODO: figure out how to implement categories and keyboards
+    # (initial feeling: many to many?)
+    # categories = SomeField()
+    keyboard = pw.ForeignKeyField(Keyboard, related_name='configs')
 
     @property
     def serialize(self):

@@ -18,7 +18,16 @@ def to_json(record, *args, **kwargs):
 
 @app.route('/')
 def index():
-    return jsonify({'hi': 'hello'})
+    return jsonify({
+        'listing': {
+            '/config/': 'all configs',
+            '/keyboard/': 'all keyboards'
+        },
+        'single': {
+            '/config/:id': 'single config with id == :id',
+            '/keyboard/:id': 'single keyboard with id == :id'
+        }
+    })
 
 
 @app.route('/keyboard/')
@@ -47,13 +56,17 @@ def list_config():
 
     if request.method == 'POST':
         # lazily create without doing any input sanitation
-        record = Config.create(
-            name=request.form['name'],
-            description=request.form['description'],
-            url=request.form['url'],
-            author='TODO: fill this in later',
-            downloads=0,
-            likes=0)
+        data = {
+            'name': request.form['name'],
+            'description': request.form['description'],
+            'githubUrl': request.form['githubUrl'],
+            'keyboard_id': request.form['keyboard_id'],
+            'author': 'TODO: fill this in later',
+            'downloads': 0,
+            'likes': 0,
+        }
+
+        record = Config.create(**data)
 
         return to_json(record)
 
